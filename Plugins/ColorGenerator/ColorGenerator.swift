@@ -1,5 +1,6 @@
 import PackagePlugin
 
+
 @main
 struct ColorGenerator: BuildToolPlugin {
 
@@ -25,3 +26,29 @@ struct ColorGenerator: BuildToolPlugin {
     }
 
 }
+
+#if canImport(XcodeProjectPlugin)
+import XcodeProjectPlugin
+
+extension ColorGenerator: XcodeBuildToolPlugin {
+
+    // Required function to enable functionality to work with Xcode project
+    func createBuildCommands(context: XcodeProjectPlugin.XcodePluginContext, target: XcodeProjectPlugin.XcodeTarget) throws -> [PackagePlugin.Command] {
+        let jsonFiles = target.inputFiles.filter { $0.path.lastComponent == "json" }
+        guard let semanticJson = jsonFiles.first(where: { $0.path.string == "Semantic"})?.path,
+              let paletteJson = jsonFiles.first(where: { $0.path.string == "Palette"})?.path else {
+            return []
+        }
+
+        // TODO: figure out how to add files to the target
+//        let outPut = target.appending(["TestGeneratedColorOutput"])
+        return [.buildCommand(displayName: "Generating color assets",
+                              executable: try context.tool(named: "ColorGeneratorExec").path,
+                              arguments: [semanticJson.string, paletteJson.string],
+                              inputFiles: [semanticJson, paletteJson],
+                              outputFiles: [])]
+    }
+
+
+}
+#endif
