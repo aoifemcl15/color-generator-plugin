@@ -1,1 +1,3 @@
-# color-generator-plugin
+# ColorGeneratorPlugin
+
+A description of this package.
