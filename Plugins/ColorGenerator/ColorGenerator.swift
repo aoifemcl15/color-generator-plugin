@@ -35,6 +35,7 @@ extension ColorGenerator: XcodeBuildToolPlugin {
     // Required function to enable functionality to work with Xcode project
     func createBuildCommands(context: XcodeProjectPlugin.XcodePluginContext, target: XcodeProjectPlugin.XcodeTarget) throws -> [PackagePlugin.Command] {
         let jsonFiles = target.inputFiles.filter { $0.path.lastComponent == "json" }
+        print("TESTING jsonFiles count: \(jsonFiles.count)")
         guard let semanticJson = jsonFiles.first(where: { $0.path.string == "Semantic"})?.path,
               let paletteJson = jsonFiles.first(where: { $0.path.string == "Palette"})?.path else {
             return []
