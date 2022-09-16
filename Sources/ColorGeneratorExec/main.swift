@@ -1,4 +1,5 @@
 import Foundation
+import ColorGeneratorCore
 
 // This will hold the code required to
 
@@ -6,6 +7,8 @@ import Foundation
 // For testing purposes let's just print them out
 
 let arguments = ProcessInfo().arguments
+
+try ColorGeneratorExisting.run(arguments: arguments)
 
 print(arguments[0])
 print(arguments[1])
