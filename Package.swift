@@ -10,6 +10,7 @@ let package = Package(
         .library(
             name: "ColorGeneratorPlugin",
             targets: ["ColorGeneratorPlugin"]),
+        .plugin(name: "ColorGenerator", targets: ["ColorGenerator"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
