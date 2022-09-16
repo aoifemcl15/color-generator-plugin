@@ -32,26 +32,29 @@ import XcodeProjectPlugin
 
 extension ColorGenerator: XcodeBuildToolPlugin {
 
-    // Required function to enable functionality to work with Xcode project
+    // This implementation is required function to enable functionality to work with Xcode project
     func createBuildCommands(context: XcodeProjectPlugin.XcodePluginContext, target: XcodeProjectPlugin.XcodeTarget) throws -> [PackagePlugin.Command] {
 
         let resourceFiles = target.inputFiles.filter { $0.type == .resource }
-        guard let semanticJson = resourceFiles.first { $0.path.lastComponent == "Semantic.json" }?.path,
-        let paletteJson = resourceFiles.first { $0.path.lastComponent == "Palette.json" }?.path else {
+        guard let semanticJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Semantic.json" })?.path,
+              let paletteJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Palette.json" })?.path else {
             return []
         }
 
-        print("INPUTFILES: \(semanticJson), \(paletteJson)")
+        // TODO: Improve selection of files - maybe check folder they belong to?
+
+        print("Semantic json path: \(semanticJsonPath)")
+        print("Palette json path: \(paletteJsonPath)")
+
+        let outputPath = semanticJsonPath.appending(["GeneratedFile"])
 
         // TODO: figure out how to add files to the target
-//        let outPut = target.appending(["TestGeneratedColorOutput"])
+        //        let outPut = target.appending(["TestGeneratedColorOutput"])
         return [.buildCommand(displayName: "Generating color assets",
                               executable: try context.tool(named: "ColorGeneratorExec").path,
-                              arguments: [semanticJson.string, paletteJson.string],
-                              inputFiles: [semanticJson, paletteJson],
-                              outputFiles: [])]
+                              arguments: [semanticJsonPath.string, paletteJsonPath.string],
+                              inputFiles: [semanticJsonPath, paletteJsonPath],
+                              outputFiles: [outputPath])]
     }
-
-
 }
 #endif
