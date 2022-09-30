@@ -33,7 +33,9 @@ public final class ColorGeneratorExisting {
         let semanticChecksum = try semanticColorsFile.read().checksum()
 
         // Output
-        let outputFolder = try Folder(path: outputPath)
+        let parentFolderName = "\(outputPath.dropLast())"
+        let parentFolder = try Folder(path: parentFolderName)
+        let outputFolder = try parentFolder.createSubfolder(at: outputPath)
         NSLog("outputFolder \(outputFolder)")
 
         let semanticColorsDecoder = JSONDecoder()
