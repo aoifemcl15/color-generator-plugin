@@ -22,8 +22,7 @@ public final class ColorGeneratorExisting {
 
         // Input
         let paletteFile = try File(path: paletteFilePath)
-        print("Palette file path: \(paletteFilePath)")
-        let palette = try Palette(from: paletteFile)
+//        let palette = try Palette(from: paletteFile)
         let semanticColorsFile = try File(path: semanticsFilePath)
 
         let paletteChecksum = try paletteFile.read().checksum()
@@ -33,7 +32,7 @@ public final class ColorGeneratorExisting {
         let outputFolder = try Folder(path: outputPath)
 
         let semanticColorsDecoder = JSONDecoder()
-        semanticColorsDecoder.userInfo[.palette] = palette
+//        semanticColorsDecoder.userInfo[.palette] = palette
         print("Trying to decode the semantic colours")
         let colorGroups = try semanticColorsDecoder.decode([ColorGroup].self, from: try semanticColorsFile.read())
 
