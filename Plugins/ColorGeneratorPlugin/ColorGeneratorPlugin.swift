@@ -8,25 +8,26 @@ struct ColorGenerator: BuildToolPlugin {
 
         guard let target = target as? SourceModuleTarget else { return [] }
 
-        // Find relevant input files for
+        let resourceFiles = target.sourceFiles.filter { $0.type == .resource }
+        guard let semanticJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Semantic.json" })?.path,
+              let paletteJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Palette.json" })?.path
+        else {
+            return []
+        }
 
-            let jsonFiles = target.sourceFiles(withSuffix: "json")
-        guard let semanticJsonPath = jsonFiles.first(where: { $0.path.string == "Semantic"})?.path,
-              let paletteJsonPath = jsonFiles.first(where: { $0.path.string == "Palette"})?.path else {
-                return []
-            }
+        let outputPath = context.pluginWorkDirectory
 
-        var semanticJsonPathString = "\(semanticJsonPath)"
-        var paletteJsonPathString = "\(paletteJsonPath)"
-        let semanticJson = semanticJsonPathString.removeLast()
-        let paletteJson = paletteJsonPathString.removeLast()
+        Diagnostics.remark("Semantic json path: \(semanticJsonPath)")
+        Diagnostics.remark("Palette json path: \(paletteJsonPath)")
+        Diagnostics.remark("Package output path: \(outputPath)")
 
-        let outPut = target.directory.appending(subpath: "Resources/GeneratedColors/TestGeneratedColorOutput")
+        let colorsOutput = outputPath.appending(subpath: "GeneratedColors/GeneratedColors.swift") // it's important to specify the file here so that it can be accessed within the target!
+
         return [.buildCommand(displayName: "Generating color assets",
-                              executable: .init("../Sources/ColorGeneratorExec"),
-                              arguments: [semanticJson, paletteJson, outPut.string],
+                              executable: try context.tool(named: "ColorGeneratorExec").path,
+                              arguments: [semanticJsonPath.string, paletteJsonPath.string, outputPath.string],
                               inputFiles: [semanticJsonPath, paletteJsonPath],
-                              outputFiles: [])]
+                              outputFiles: [colorsOutput])]
         
     }
 
@@ -53,7 +54,7 @@ extension ColorGenerator: XcodeBuildToolPlugin {
         Diagnostics.remark("Palette json path: \(paletteJsonPath)")
         Diagnostics.remark("Package output path: \(outputPath)")
 
-        let colorsOutput = outputPath.appending(subpath: "GeneratedColors/GeneratedColors.swift")
+        let colorsOutput = outputPath.appending(subpath: "GeneratedColors/GeneratedColors.swift") // it's important to specify the file here so that it can be accessed within the target!
 
         return [.buildCommand(displayName: "Generating color assets",
                               executable: try context.tool(named: "ColorGeneratorExec").path,
