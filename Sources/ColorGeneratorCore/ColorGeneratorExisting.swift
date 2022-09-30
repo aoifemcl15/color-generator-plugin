@@ -15,10 +15,10 @@ extension Data {
 public final class ColorGeneratorExisting {
 
     public class func run(arguments: [String]) throws {
-        // The first argument is the execution path
-        let paletteFilePath = arguments[0]
-        let semanticsFilePath = arguments[1]
-        let outputPath = arguments[2]
+
+        let paletteFilePath = arguments[1]
+        let semanticsFilePath = arguments[2]
+        let outputPath = arguments[3]
 
         // Input
         let paletteFile = try File(path: paletteFilePath)

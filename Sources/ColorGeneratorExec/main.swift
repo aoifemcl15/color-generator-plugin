@@ -9,7 +9,3 @@ import ColorGeneratorCore
 let arguments = ProcessInfo().arguments
 
 try ColorGeneratorExisting.run(arguments: arguments)
-
-print(arguments[0])
-print(arguments[1])
-print(arguments[2])
