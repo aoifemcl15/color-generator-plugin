@@ -25,7 +25,7 @@ struct ColorGenerator: BuildToolPlugin {
                               executable: try context.tool(named: "ColorGeneratorExec").path,
                               arguments: [semanticJson.string, paletteJson.string, outPut.string],
                               inputFiles: [semanticJson, paletteJson],
-                              outputFiles: [outPut])]
+                              outputFiles: [])]
     }
 
 }
