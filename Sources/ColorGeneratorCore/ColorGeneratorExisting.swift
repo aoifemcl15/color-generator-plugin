@@ -16,15 +16,17 @@ public final class ColorGeneratorExisting {
 
     public class func run(arguments: [String]) throws {
 
-        let paletteFilePath = arguments[0]
         let semanticsFilePath = arguments[1]
-        let outputPath = arguments[2]
+        let paletteFilePath = arguments[2]
+        let outputPath = arguments[3]
 
         NSLog("Arguments \(arguments)")
 
         // Input
         let paletteFile = try File(path: paletteFilePath)
+        NSLog("paletteFilePath \(paletteFilePath)")
         let palette = try Palette(from: paletteFile)
+        NSLog("semanticsFilePath \(semanticsFilePath)")
         let semanticColorsFile = try File(path: semanticsFilePath)
 
         let paletteChecksum = try paletteFile.read().checksum()
@@ -32,6 +34,7 @@ public final class ColorGeneratorExisting {
 
         // Output
         let outputFolder = try Folder(path: outputPath)
+        NSLog("outputFolder \(outputFolder)")
 
         let semanticColorsDecoder = JSONDecoder()
         semanticColorsDecoder.userInfo[.palette] = palette
