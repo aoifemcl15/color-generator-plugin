@@ -31,10 +31,11 @@ public final class ColorGeneratorExisting {
         // Output
         let outputFolder = try Folder(path: outputPath)
 
-        let semanticColorsDecoder = JSONDecoder()
-        semanticColorsDecoder.userInfo[.palette] = palette
-        print("Trying to decode the semantic colours")
-        let colorGroups = try semanticColorsDecoder.decode([ColorGroup].self, from: try semanticColorsFile.read())
+//        let semanticColorsDecoder = JSONDecoder()
+//        semanticColorsDecoder.userInfo[.palette] = palette
+//        print("Trying to decode the semantic colours")
+//        let colorGroups = try semanticColorsDecoder.decode([ColorGroup].self, from: try semanticColorsFile.read())
+        let colorGroups = [ColorGroup]()
 
         if let existingPaletteChecksum = try? outputFolder.file(named: "palette.checksum").readAsString(),
             let existingSemanticChecksum = try? outputFolder.file(named: "semantic.checksum").readAsString(),
