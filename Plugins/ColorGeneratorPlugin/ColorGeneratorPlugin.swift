@@ -51,6 +51,7 @@ extension ColorGenerator: XcodeBuildToolPlugin {
 
         Diagnostics.remark("Semantic json path: \(semanticJsonPath)")
         Diagnostics.remark("Palette json path: \(paletteJsonPath)")
+        Diagnostics.remark("Output path: \(outputPath)")
 
         return [.buildCommand(displayName: "Generating color assets",
                               executable: try context.tool(named: "ColorGeneratorExec").path,
