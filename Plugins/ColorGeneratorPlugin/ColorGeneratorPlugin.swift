@@ -1,6 +1,5 @@
 import PackagePlugin
 
-
 @main
 struct ColorGenerator: BuildToolPlugin {
 
@@ -54,11 +53,13 @@ extension ColorGenerator: XcodeBuildToolPlugin {
         Diagnostics.remark("Palette json path: \(paletteJsonPath)")
         Diagnostics.remark("Package output path: \(outputPath)")
 
+        let colorsOutput = outputPath.appending(subpath: "Colors.swift")
+
         return [.buildCommand(displayName: "Generating color assets",
                               executable: try context.tool(named: "ColorGeneratorExec").path,
                               arguments: [semanticJsonPath.string, paletteJsonPath.string, outputPath.string],
                               inputFiles: [semanticJsonPath, paletteJsonPath],
-                              outputFiles: [outputPath])]
+                              outputFiles: [colorsOutput])]
     }
 }
 #endif
