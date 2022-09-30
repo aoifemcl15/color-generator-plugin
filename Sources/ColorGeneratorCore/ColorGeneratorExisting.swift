@@ -20,9 +20,10 @@ public final class ColorGeneratorExisting {
         let semanticsFilePath = arguments[1]
         let outputPath = arguments[2]
 
+        NSLog("Arguments \(arguments)")
+
         // Input
         let paletteFile = try File(path: paletteFilePath)
-        NSLog("Palette file path \(paletteFile)")
         let palette = try Palette(from: paletteFile)
         let semanticColorsFile = try File(path: semanticsFilePath)
 
