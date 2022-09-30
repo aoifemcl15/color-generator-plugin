@@ -17,6 +17,9 @@ struct ColorGenerator: BuildToolPlugin {
                 return []
             }
 
+        print("Semantic JSON \(semanticJson)")
+        print("Palette JSON \(paletteJson)")
+
         let outPut = target.directory.appending(["TestGeneratedColorOutput"])
         return [.buildCommand(displayName: "Generating color assets",
                               executable: try context.tool(named: "ColorGeneratorExec").path,
