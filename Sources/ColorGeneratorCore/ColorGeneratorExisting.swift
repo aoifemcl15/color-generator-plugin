@@ -39,18 +39,18 @@ public final class ColorGeneratorExisting {
         let semanticColorsDecoder = JSONDecoder()
         semanticColorsDecoder.userInfo[.palette] = palette
 
-        print("Trying to decode the semantic colours")
+        NSLog("Trying to decode the semantic colours")
         let colorGroups = try semanticColorsDecoder.decode([ColorGroup].self, from: try semanticColorsFile.read())
 
         if let existingPaletteChecksum = try? outputFolder.file(named: "palette.checksum").readAsString(),
             let existingSemanticChecksum = try? outputFolder.file(named: "semantic.checksum").readAsString(),
             paletteChecksum == existingPaletteChecksum,
             semanticChecksum == existingSemanticChecksum {
-            print("colours have not changed... skipping generation")
+            NSLog("colours have not changed... skipping generation")
             return
         }
 
-        print("generating colours...")
+        NSLog("generating colours...")
         try outputFolder.empty()
 
         let swiftReferences = SwiftReferencesGenerator.generate(for: colorGroups)
