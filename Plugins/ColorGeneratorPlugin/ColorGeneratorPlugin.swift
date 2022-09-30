@@ -17,12 +17,18 @@ struct ColorGenerator: BuildToolPlugin {
                 return []
             }
 
+        var semanticJsonPathString = "\(semanticJsonPath)"
+        var paletteJsonPathString = "\(paletteJsonPath)"
+        let semanticJson = semanticJsonPathString.removeLast()
+        let paletteJson = paletteJsonPathString.removeLast()
+
         let outPut = target.directory.appending(subpath: "Resources/GeneratedColors/TestGeneratedColorOutput")
         return [.buildCommand(displayName: "Generating color assets",
                               executable: .init("../Sources/ColorGeneratorExec"),
                               arguments: [semanticJson, paletteJson, outPut.string],
                               inputFiles: [semanticJsonPath, paletteJsonPath],
                               outputFiles: [])]
+        
     }
 
 }
@@ -58,7 +64,7 @@ extension ColorGenerator: XcodeBuildToolPlugin {
         //        let outPut = target.appending(["TestGeneratedColorOutput"])
         return [.buildCommand(displayName: "Generating color assets",
                               executable: try context.tool(named: "ColorGeneratorExec").path,
-                              arguments: [semanticJsonPath.string, paletteJsonPath.string],
+                              arguments: [semanticJson, paletteJson],
                               inputFiles: [semanticJsonPath, paletteJsonPath],
                               outputFiles: [])]
     }
