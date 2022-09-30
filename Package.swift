@@ -7,7 +7,7 @@ let package = Package(
     name: "ColorGeneratorPlugin",
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .plugin(name: "ColorGenerator", targets: ["ColorGenerator"])
+        .plugin(name: "ColorGeneratorPlugin", targets: ["ColorGeneratorPlugin"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -22,8 +22,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(name: "ColorGeneratorCore", dependencies: [.product(name: "Files", package: "files")]),
         // empty target
-        .target(name: "ColorGeneratorPlugin", path: "Sources/ColorGeneratorPlugin"),
-        .plugin(name: "ColorGenerator", capability: .buildTool(), dependencies: ["ColorGeneratorExec"]),
+        .plugin(name: "ColorGeneratorPlugin", capability: .buildTool(), dependencies: ["ColorGeneratorExec"]),
         .executableTarget(name: "ColorGeneratorExec", dependencies: ["ColorGeneratorCore", .product(name: "Files", package: "files")]),
     ]
 )
