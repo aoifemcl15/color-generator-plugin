@@ -16,9 +16,9 @@ public final class ColorGeneratorExisting {
 
     public class func run(arguments: [String]) throws {
 
-        let paletteFilePath = arguments[1]
-        let semanticsFilePath = arguments[2]
-        let outputPath = arguments[3]
+        let paletteFilePath = arguments[0]
+        let semanticsFilePath = arguments[1]
+        let outputPath = arguments[2]
 
         // Input
         let paletteFile = try File(path: paletteFilePath)

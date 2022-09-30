@@ -43,12 +43,11 @@ extension ColorGenerator: XcodeBuildToolPlugin {
 
         let resourceFiles = target.inputFiles.filter { $0.type == .resource }
         guard let semanticJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Semantic.json" })?.path,
-              let paletteJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Palette.json" })?.path,
-              let outputPath = resourceFiles.first(where: {$0.path.lastComponent == "GeneratedColors.swift" })?.path else {
+              let paletteJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Palette.json" })?.path else {
             return []
         }
 
-        // TODO: Improve selection of files - maybe check folder they belong to?
+        let outputPath = Path("GLA/Resources/GeneratedColors")
 
         Diagnostics.remark("Semantic json path: \(semanticJsonPath)")
         Diagnostics.remark("Palette json path: \(paletteJsonPath)")
