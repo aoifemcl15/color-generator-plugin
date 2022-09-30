@@ -23,10 +23,7 @@ let package = Package(
         .target(name: "ColorGeneratorCore", dependencies: [.product(name: "Files", package: "files")]),
         .plugin(name: "ColorGeneratorPlugin",
                 capability: .command(
-                    intent: .custom(
-                        verb: "generate colors",
-                        description: "Generates colours from the Guardian palette"
-                ),
+                    intent: .sourceCodeFormatting(),
                     permissions: [.writeToPackageDirectory(reason: "This command writes the new colours to the source root")]),
                 dependencies: ["ColorGeneratorExec"]),
         .executableTarget(name: "ColorGeneratorExec", dependencies: ["ColorGeneratorCore", .product(name: "Files", package: "files")]),
