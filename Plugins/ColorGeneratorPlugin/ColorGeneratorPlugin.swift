@@ -12,10 +12,15 @@ struct ColorGenerator: BuildToolPlugin {
         // Find relevant input files for
 
             let jsonFiles = target.sourceFiles(withSuffix: "json")
-        guard let semanticJson = jsonFiles.first(where: { $0.path.string == "Semantic"})?.path.removingLastComponent(),
-              let paletteJson = jsonFiles.first(where: { $0.path.string == "Palette"})?.path.removingLastComponent() else {
+        guard let semanticJsonPath = jsonFiles.first(where: { $0.path.string == "Semantic"})?.path,
+              let paletteJsonPath = jsonFiles.first(where: { $0.path.string == "Palette"})?.path else {
                 return []
             }
+
+        var semanticJsonPathString = "\(semanticJsonPath)"
+        var paletteJsonPathString = "\(paletteJsonPath)"
+        let semanticJson = semanticJsonPathString.removeLast()
+        let paletteJson = paletteJsonPathString.removeLast()
 
         print("Semantic JSON \(semanticJson)")
         print("Palette JSON \(paletteJson)")
@@ -23,8 +28,8 @@ struct ColorGenerator: BuildToolPlugin {
         let outPut = target.directory.appending(subpath: "Resources/GeneratedColors/TestGeneratedColorOutput")
         return [.buildCommand(displayName: "Generating color assets",
                               executable: .init("../Sources/ColorGeneratorExec"),
-                              arguments: [semanticJson.string, paletteJson.string, outPut.string],
-                              inputFiles: [semanticJson, paletteJson],
+                              arguments: [semanticJson, paletteJson, outPut.string],
+                              inputFiles: [semanticJsonPath, paletteJsonPath],
                               outputFiles: [])]
     }
 
