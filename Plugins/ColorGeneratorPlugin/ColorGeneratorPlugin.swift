@@ -55,8 +55,8 @@ extension ColorGenerator: XcodeBuildToolPlugin {
         let semanticJson = semanticJsonPathString.removeLast()
         let paletteJson = paletteJsonPathString.removeLast()
 
-        print("Semantic json path: \(semanticJsonPath)")
-        print("Palette json path: \(paletteJsonPath)")
+        Diagnostics.remark("Semantic json path: \(semanticJsonPath)")
+        Diagnostics.remark("Palette json path: \(paletteJsonPath)")
 
 //        let outputPath = semanticJsonPath.appending(["GeneratedFile"])
 
