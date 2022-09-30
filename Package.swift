@@ -22,9 +22,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(name: "ColorGeneratorCore", dependencies: [.product(name: "Files", package: "files")]),
         .plugin(name: "ColorGeneratorPlugin",
-                capability: .command(
-                    intent: .sourceCodeFormatting(),
-                    permissions: [.writeToPackageDirectory(reason: "This command writes the new colours to the source root")]),
+                capability: .buildTool(),
                 dependencies: ["ColorGeneratorExec"]),
         .executableTarget(name: "ColorGeneratorExec", dependencies: ["ColorGeneratorCore", .product(name: "Files", package: "files")]),
     ]

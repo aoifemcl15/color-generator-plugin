@@ -18,7 +18,7 @@ public final class ColorGeneratorExisting {
 
         let semanticsFilePath = arguments[1]
         let paletteFilePath = arguments[2]
-        let resourcesPath = arguments[3]
+        let outputPath = arguments[3]
 
         NSLog("Arguments \(arguments)")
 
@@ -33,8 +33,8 @@ public final class ColorGeneratorExisting {
         let semanticChecksum = try semanticColorsFile.read().checksum()
 
         // Output
-        let parentFolder = try Folder(path: resourcesPath)
-        let outputFolder = try parentFolder.createSubfolder(at: "PluginGeneratedColors")
+        let parentFolder = try Folder(path: outputPath)
+        let outputFolder = try parentFolder.createSubfolder(at: "GeneratedColors")
         NSLog("outputFolder \(outputFolder)")
 
         let semanticColorsDecoder = JSONDecoder()
