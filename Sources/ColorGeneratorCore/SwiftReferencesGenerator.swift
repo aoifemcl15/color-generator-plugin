@@ -21,7 +21,7 @@ enum SwiftReferencesGenerator {
 
         // swiftlint:disable color_named_reference
         
-        public enum Colors {
+        public enum GeneratedColors {
 
         """
     }
