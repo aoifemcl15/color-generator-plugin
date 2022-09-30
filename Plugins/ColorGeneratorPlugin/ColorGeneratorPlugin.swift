@@ -22,13 +22,13 @@ struct ColorGenerator: BuildToolPlugin {
         let semanticJson = semanticJsonPathString.removeLast()
         let paletteJson = paletteJsonPathString.removeLast()
 
-        Diagnostics.remark("Semantic JSON \(semanticJson)")
-        Diagnostics.remark("Palette JSON \(paletteJson)")
+        Diagnostics.error("Semantic JSON \(semanticJson)")
+        Diagnostics.error("Palette JSON \(paletteJson)")
 
         let outPut = target.directory.appending(subpath: "Resources/GeneratedColors/TestGeneratedColorOutput")
         return [.buildCommand(displayName: "Generating color assets",
                               executable: .init("../Sources/ColorGeneratorExec"),
-                              arguments: ["TEST", paletteJson, outPut.string],
+                              arguments: [semanticJson, paletteJson, outPut.string],
                               inputFiles: [semanticJsonPath, paletteJsonPath],
                               outputFiles: [])]
     }
