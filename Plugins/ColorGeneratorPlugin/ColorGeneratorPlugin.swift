@@ -17,14 +17,6 @@ struct ColorGenerator: BuildToolPlugin {
                 return []
             }
 
-        var semanticJsonPathString = "\(semanticJsonPath)"
-        var paletteJsonPathString = "\(paletteJsonPath)"
-        let semanticJson = semanticJsonPathString.removeLast()
-        let paletteJson = paletteJsonPathString.removeLast()
-
-        Diagnostics.error("Semantic JSON \(semanticJson)")
-        Diagnostics.error("Palette JSON \(paletteJson)")
-
         let outPut = target.directory.appending(subpath: "Resources/GeneratedColors/TestGeneratedColorOutput")
         return [.buildCommand(displayName: "Generating color assets",
                               executable: .init("../Sources/ColorGeneratorExec"),
@@ -51,10 +43,16 @@ extension ColorGenerator: XcodeBuildToolPlugin {
 
         // TODO: Improve selection of files - maybe check folder they belong to?
 
+
+        var semanticJsonPathString = "\(semanticJsonPath)"
+        var paletteJsonPathString = "\(paletteJsonPath)"
+        let semanticJson = semanticJsonPathString.removeLast()
+        let paletteJson = paletteJsonPathString.removeLast()
+
         print("Semantic json path: \(semanticJsonPath)")
         print("Palette json path: \(paletteJsonPath)")
 
-        let outputPath = semanticJsonPath.appending(["GeneratedFile"])
+//        let outputPath = semanticJsonPath.appending(["GeneratedFile"])
 
         // TODO: figure out how to add files to the target
         //        let outPut = target.appending(["TestGeneratedColorOutput"])
@@ -62,7 +60,7 @@ extension ColorGenerator: XcodeBuildToolPlugin {
                               executable: try context.tool(named: "ColorGeneratorExec").path,
                               arguments: [semanticJsonPath.string, paletteJsonPath.string],
                               inputFiles: [semanticJsonPath, paletteJsonPath],
-                              outputFiles: [outputPath])]
+                              outputFiles: [])]
     }
 }
 #endif
