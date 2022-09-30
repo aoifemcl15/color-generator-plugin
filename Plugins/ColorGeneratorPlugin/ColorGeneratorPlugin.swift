@@ -48,7 +48,7 @@ extension ColorGenerator: XcodeBuildToolPlugin {
             return []
         }
 
-        let outputPath = context.pluginWorkDirectory.appending(subpath: "Output")
+        let outputPath = context.pluginWorkDirectory
 
         Diagnostics.remark("Semantic json path: \(semanticJsonPath)")
         Diagnostics.remark("Palette json path: \(paletteJsonPath)")
