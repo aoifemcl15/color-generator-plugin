@@ -21,7 +21,9 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(name: "ColorGeneratorCore", dependencies: [.product(name: "Files", package: "files")]),
+        // empty target
+        .target(name: "ColorGeneratorPlugin", path: "Sources/ColorGeneratorPlugin"),
+        .plugin(name: "ColorGenerator", capability: .buildTool(), dependencies: ["ColorGeneratorExec"]),
         .executableTarget(name: "ColorGeneratorExec", dependencies: ["ColorGeneratorCore", .product(name: "Files", package: "files")]),
-        .plugin(name: "ColorGenerator", capability: .buildTool(), dependencies: ["ColorGeneratorExec"])
     ]
 )
