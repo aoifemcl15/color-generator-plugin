@@ -12,8 +12,8 @@ struct ColorGenerator: BuildToolPlugin {
         // Find relevant input files for
 
             let jsonFiles = target.sourceFiles(withSuffix: "json")
-            guard let semanticJson = jsonFiles.first(where: { $0.path.string == "Semantic"}),
-                  let paletteJson = jsonFiles.first(where: { $0.path.string == "Palette"}) else {
+        guard let semanticJson = jsonFiles.first(where: { $0.path.string == "Semantic"})?.path.removingLastComponent(),
+              let paletteJson = jsonFiles.first(where: { $0.path.string == "Palette"})?.path.removingLastComponent() else {
                 return []
             }
 
