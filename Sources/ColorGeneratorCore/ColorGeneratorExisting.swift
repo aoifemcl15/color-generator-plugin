@@ -55,7 +55,7 @@ public final class ColorGeneratorExisting {
         try outputFolder.empty()
 
         let swiftReferences = SwiftReferencesGenerator.generate(for: colorGroups)
-        try outputFolder.createFile(named: "Colors.swift", contents: swiftReferences.data(using: .utf8)!)
+        try outputFolder.createFile(named: "GeneratedColors.swift", contents: swiftReferences.data(using: .utf8)!)
 
         try AssetCatalogueGenerator.generate(for: colorGroups, outputFolder: outputFolder)
 
@@ -65,6 +65,12 @@ public final class ColorGeneratorExisting {
         try paletteChecksumFile.write(paletteChecksum)
         try semanticChecksumFile.write(semanticChecksum)
     }
+
+
+    // Output folder lives here inside the derived data of the package  "/Users/aoife_mclaughlin/Library/Developer/Xcode/DerivedData/GLA-fhzbpkxiizkbvlcdejzovtupaxsk/SourcePackages/plugins/GLA.output/GLA/ColorGeneratorPlugin/GeneratedColors/"
+
+
+
 }
 
 extension CodingUserInfoKey {
