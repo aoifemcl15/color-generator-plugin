@@ -29,46 +29,25 @@ public final class ColorGeneratorExisting {
         NSLog("semanticsFilePath \(semanticsFilePath)")
         let semanticColorsFile = try File(path: semanticsFilePath)
 
-        let paletteChecksum = try paletteFile.read().checksum()
-        let semanticChecksum = try semanticColorsFile.read().checksum()
 
         // Output
-        do {
-            let parentFolder = try Folder(path: outputPath)
-            let outputFolder = try parentFolder.createSubfolder(at: "GeneratedColors")
 
-            let semanticColorsDecoder = JSONDecoder()
-            semanticColorsDecoder.userInfo[.palette] = palette
+        let parentFolder = try Folder(path: outputPath)
+        let outputFolder = try parentFolder.createSubfolder(at: "GeneratedColors")
 
-            NSLog("Trying to decode the semantic colours")
-            let colorGroups = try semanticColorsDecoder.decode([ColorGroup].self, from: try semanticColorsFile.read())
+        let semanticColorsDecoder = JSONDecoder()
+        semanticColorsDecoder.userInfo[.palette] = palette
 
-            if let existingPaletteChecksum = try? outputFolder.file(named: "palette.checksum").readAsString(),
-                let existingSemanticChecksum = try? outputFolder.file(named: "semantic.checksum").readAsString(),
-                paletteChecksum == existingPaletteChecksum,
-                semanticChecksum == existingSemanticChecksum {
-                NSLog("colours have not changed... skipping generation")
-                return
-            }
+        NSLog("Trying to decode the semantic colours")
+        let colorGroups = try semanticColorsDecoder.decode([ColorGroup].self, from: try semanticColorsFile.read())
 
-            NSLog("generating colours...")
-            try outputFolder.empty()
+        NSLog("generating colours...")
+        try outputFolder.empty()
 
-            let swiftReferences = SwiftReferencesGenerator.generate(for: colorGroups)
-            try outputFolder.createFile(named: "Colors.swift", contents: swiftReferences.data(using: .utf8)!)
+        let swiftReferences = SwiftReferencesGenerator.generate(for: colorGroups)
+        try outputFolder.createFile(named: "Colors.swift", contents: swiftReferences.data(using: .utf8)!)
 
-            try AssetCatalogueGenerator.generate(for: colorGroups, outputFolder: outputFolder)
-
-            // generate checksum files
-            let paletteChecksumFile = try outputFolder.createFile(named: "palette.checksum")
-            let semanticChecksumFile = try outputFolder.createFile(named: "semantic.checksum")
-            try paletteChecksumFile.write(paletteChecksum)
-            try semanticChecksumFile.write(semanticChecksum)
-        }
-        catch {
-            NSLog("Error creating output folder \(error)")
-        }
-
+        try AssetCatalogueGenerator.generate(for: colorGroups, outputFolder: outputFolder)
     }
 
 

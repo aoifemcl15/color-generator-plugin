@@ -8,4 +8,9 @@ import ColorGeneratorCore
 
 let arguments = ProcessInfo().arguments
 
-try ColorGeneratorExisting.run(arguments: arguments)
+do {
+    try ColorGeneratorExisting.run(arguments: arguments)
+}
+catch {
+    "Error while generating colours \(error)"
+}
