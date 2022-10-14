@@ -12,7 +12,7 @@ extension Data {
     }
 }
 
-public final class ColorGeneratorExisting {
+public final class ColorGenerator {
 
     public class func run(arguments: [String]) throws {
 
