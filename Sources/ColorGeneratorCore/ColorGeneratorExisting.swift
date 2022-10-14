@@ -55,7 +55,7 @@ public final class ColorGeneratorExisting {
         try outputFolder.empty()
 
         let swiftReferences = SwiftReferencesGenerator.generate(for: colorGroups)
-        try outputFolder.createFile(named: "GeneratedColors.swift", contents: swiftReferences.data(using: .utf8)!)
+        try outputFolder.createFile(named: "Colors.swift", contents: swiftReferences.data(using: .utf8)!)
 
         try AssetCatalogueGenerator.generate(for: colorGroups, outputFolder: outputFolder)
 

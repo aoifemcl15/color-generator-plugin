@@ -21,7 +21,7 @@ struct ColorGenerator: BuildToolPlugin {
         Diagnostics.remark("Palette json path: \(paletteJsonPath)")
         Diagnostics.remark("Package output path: \(outputPath)")
 
-        let colorsOutput = outputPath.appending(subpath: "GeneratedColors/GeneratedColors.swift") // it's important to specify the file here so that it can be accessed within the target!
+        let colorsOutput = outputPath.appending(subpath: "GeneratedColors/Colors.swift") // it's important to specify the file here so that it can be accessed within the target!
 
         return [.buildCommand(displayName: "Generating color assets",
                               executable: try context.tool(named: "ColorGeneratorExec").path,
@@ -55,7 +55,7 @@ extension ColorGenerator: XcodeBuildToolPlugin {
         Diagnostics.remark("Palette json path: \(paletteJsonPath)")
         Diagnostics.remark("Package output path: \(outputPath)")
 
-        let colorsOutput = outputPath.appending(subpath: "GeneratedColors/GeneratedColors.swift") // it's important to specify the file here so that it can be accessed within the target!
+        let colorsOutput = outputPath.appending(subpath: "GeneratedColors/Colors.swift") // it's important to specify the file here so that it can be accessed within the target!
 
         return [.buildCommand(displayName: "Generating color assets",
                               executable: try context.tool(named: "ColorGeneratorExec").path,
