@@ -12,5 +12,5 @@ do {
     try ColorGeneratorExisting.run(arguments: arguments)
 }
 catch {
-    "Error while generating colours \(error)"
+    NSLog("Error while generating colours \(error)")
 }
