@@ -49,12 +49,6 @@ public final class ColorGenerator {
 
         try AssetCatalogueGenerator.generate(for: colorGroups, outputFolder: outputFolder)
     }
-
-
-    // Output folder lives here inside the derived data of the package  "/Users/aoife_mclaughlin/Library/Developer/Xcode/DerivedData/GLA-fhzbpkxiizkbvlcdejzovtupaxsk/SourcePackages/plugins/GLA.output/GLA/ColorGeneratorPlugin/GeneratedColors/"
-
-
-
 }
 
 extension CodingUserInfoKey {
