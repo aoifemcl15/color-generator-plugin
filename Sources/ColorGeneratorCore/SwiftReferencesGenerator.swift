@@ -55,7 +55,7 @@ enum SwiftReferencesGenerator {
     private static func declareColor(_ color: SemanticColor, in namespace: String) -> String {
         return """
 
-                static let \(color.name) = UIColor(named: "\(namespace)/\(color.name)", bundle: Bundle.module)!
+                static let \(color.name) = UIColor(named: "\(namespace)/\(color.name)", in: Bundle.module, compatibleWith: .current)!
         """
     }
 
