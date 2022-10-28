@@ -21,7 +21,7 @@ enum SwiftReferencesGenerator {
 
         // swiftlint:disable color_named_reference
 
-        // import UIKit
+        import UIKit
         
         public enum Colors {
 
