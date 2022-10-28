@@ -10,6 +10,7 @@ struct ColorGenerator: BuildToolPlugin {
         guard let target = target as? SourceModuleTarget else { return [] }
         Diagnostics.remark("Color generator applying to target: \(target)")
 
+        // 1. Find the input files needed to pass through to the executable
         let resourceFiles = target.sourceFiles.filter { $0.type == .resource }
         guard let semanticJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Semantic.json" })?.path,
               let paletteJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Palette.json" })?.path
@@ -23,6 +24,7 @@ struct ColorGenerator: BuildToolPlugin {
         Diagnostics.remark("Palette json path: \(paletteJsonPath)")
         Diagnostics.remark("Package output path: \(outputPath)")
 
+        // 2. Create a reference to a file which will contain the colour output 
         let colorsOutput = outputPath.appending(subpath: "GeneratedColors/Colors.swift") // it's important to specify the file here so that it can be accessed within the target!
 
         return [.buildCommand(displayName: "Generating color assets",
@@ -44,6 +46,7 @@ extension ColorGenerator: XcodeBuildToolPlugin {
     // This implementation is required function to enable functionality to work with Xcode project
     func createBuildCommands(context: XcodeProjectPlugin.XcodePluginContext, target: XcodeProjectPlugin.XcodeTarget) throws -> [PackagePlugin.Command] {
 
+        // 1. Find the input files to pass through to the executable
         let resourceFiles = target.inputFiles.filter { $0.type == .resource }
         guard let semanticJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Semantic.json" })?.path,
               let paletteJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Palette.json" })?.path
@@ -56,6 +59,7 @@ extension ColorGenerator: XcodeBuildToolPlugin {
         Diagnostics.remark("Semantic json path: \(semanticJsonPath)")
         Diagnostics.remark("Palette json path: \(paletteJsonPath)")
 
+        // 2. Create new reference for the Colors.swift output file
         let colorsOutput = outputFolder.appending(subpath: "GeneratedColors/Colors.swift") // it's important to specify the file here so that it can be accessed within the target!
 
         Diagnostics.remark("Package output path: \(colorsOutput)")

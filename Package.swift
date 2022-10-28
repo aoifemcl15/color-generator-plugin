@@ -24,6 +24,6 @@ let package = Package(
         .plugin(name: "ColorGeneratorPlugin",
                 capability: .buildTool(),
                 dependencies: ["ColorGeneratorExec"]),
-        .executableTarget(name: "ColorGeneratorExec", dependencies: ["ColorGeneratorCore", .product(name: "Files", package: "files")]),
+        .executableTarget(name: "ColorGeneratorExec", dependencies: ["ColorGeneratorCore", .product(name: "Files", package: "files")])
     ]
 )
