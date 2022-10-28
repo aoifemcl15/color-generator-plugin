@@ -5,8 +5,10 @@ struct ColorGenerator: BuildToolPlugin {
 
     func createBuildCommands(context: PackagePlugin.PluginContext, target: PackagePlugin.Target) async throws -> [PackagePlugin.Command] {
         // Uses the target that the plugin is being used by
+        Diagnostics.remark("Color Generator starting on swift package")
 
         guard let target = target as? SourceModuleTarget else { return [] }
+        Diagnostics.remark("Color generator applying to target: \(target)")
 
         let resourceFiles = target.sourceFiles.filter { $0.type == .resource }
         guard let semanticJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Semantic.json" })?.path,
