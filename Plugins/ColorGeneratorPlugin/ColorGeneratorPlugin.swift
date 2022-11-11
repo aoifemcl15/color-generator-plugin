@@ -61,6 +61,7 @@ extension ColorGenerator: XcodeBuildToolPlugin {
 
         // 2. Create new reference for the Colors.swift output file
         let colorsOutput = outputFolder.appending(subpath: "GeneratedColors/Colors.swift") // it's important to specify the file here so that it can be accessed within the target!
+        let assetsOutput = outputFolder.appending(subpath: "GeneratedColors/GeneratedColors.xcassets")
 
         Diagnostics.remark("Package output path: \(colorsOutput)")
 
@@ -68,7 +69,7 @@ extension ColorGenerator: XcodeBuildToolPlugin {
                               executable: try context.tool(named: "ColorGeneratorExec").path,
                               arguments: [semanticJsonPath.string, paletteJsonPath.string, outputFolder.string],
                               inputFiles: [semanticJsonPath, paletteJsonPath],
-                              outputFiles: [colorsOutput])]
+                              outputFiles: [colorsOutput, assetsOutput])]
     }
 }
 #endif
