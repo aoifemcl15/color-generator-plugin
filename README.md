@@ -29,13 +29,47 @@ You can integrate ColorGeneratorPlugin as a Swift Package Manager Plug-in if you
 Add ColorGeneratorPlugin as a package dependency to your `Package.swift` file. 
 Add ColorGeneratorPlugin to a target using the `plugins` parameter. 
 
+<img width="865" alt="Screenshot 2022-11-18 at 16 38 31" src="https://user-images.githubusercontent.com/53755195/202756040-1d4258c9-ee88-499a-bbce-a42c256871bc.png">
+
 ## Usage 
 
 ### Requirements 
 
 This ColorGeneratorPlugin requires that the target you are using it with contains two JSON files. 
-1. Semantic.json 
-2. Palette.json 
- 
+1. **Palette.json**
+```
+[
+    {
+        "name": "paletteRed",
+        "hex": "ff0000"
+    },
+    {
+        "name": "paletteBlue",
+        "hex": "0000ff"
+    },
+]
+
+```
+
+
+2. **Semantic.json** 
+
+Each color is semantically named and references a color defined in Palette.json
+ ```
+ [
+    {
+        "namespace": "TestView",
+        "colors": [{
+            "name": "borderColor",
+            "universal": {
+                "paletteColor": "paletteRed"
+            },
+            "dark": {
+                "paletteColor": "paletteBlue"
+            }
+        }]
+    }
+]
+ ```
 
 
