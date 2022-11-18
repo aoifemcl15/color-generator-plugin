@@ -15,6 +15,7 @@ struct ColorGenerator: BuildToolPlugin {
         guard let semanticJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Semantic.json" })?.path,
               let paletteJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Palette.json" })?.path
         else {
+            Diagnostics.remark("Unable to find required input files, make sure both the Palette.json and Semantic.json exist in the target")
             return []
         }
 
@@ -51,6 +52,7 @@ extension ColorGenerator: XcodeBuildToolPlugin {
         guard let semanticJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Semantic.json" })?.path,
               let paletteJsonPath = resourceFiles.first(where: { $0.path.lastComponent == "Palette.json" })?.path
         else {
+            Diagnostics.remark("Unable to find required input files, make sure both the Palette.json and Semantic.json belong to the target")
             return []
         }
 
