@@ -27,13 +27,14 @@ struct ColorGenerator: BuildToolPlugin {
 
         // 2. Create a reference to a file which will contain the colour output 
         let colorsOutput = outputPath.appending(subpath: "GeneratedColors/Colors.swift") // it's important to specify the file here so that it can be accessed within the target!
+        let assetsOutput = outputPath.appending(subpath: "GeneratedColors/GeneratedColors.xcassets")
 
         return [.buildCommand(displayName: "Generating color assets",
                               executable: try context.tool(named: "ColorGeneratorExec").path,
                               arguments: [semanticJsonPath.string, paletteJsonPath.string, outputPath.string],
                               inputFiles: [semanticJsonPath, paletteJsonPath],
                               // output files should include any code you want to reference within the main target 
-                              outputFiles: [colorsOutput])]
+                              outputFiles: [colorsOutput, assetsOutput])]
         
     }
 
