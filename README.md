@@ -1,12 +1,12 @@
 # ColorGeneratorPlugin
 
-A Swift Package Plugin which colour generation from a palette, which can be used both in Xcode project targets as well as Swift Packages. 
+A Swift Package Plugin which generates semantically named colours based off of a palette of your choice. 
 
-The package takes two JSON input files, a Palette.json and a Semantic.json. The package will then use these JSON files to produce two outputs, a GeneratedColors.xcassets and a Colors.swift. 
+The package takes two JSON input files, a `Palette.json` and a `Semantic.json`. The package will then use these JSON files to produce two outputs, a `GeneratedColors.xcassets` and a `Colors.swift`. 
 
-The GeneratedColors.xcassets catalogue will contain all of the colours referenced in the Semantic.json. 
+* The `GeneratedColors.xcassets` catalogue will contain all of the colours referenced in the Semantic.json. 
 
-The Colors.swift is a file with `Colors` enum which you can use to access the colours in code, like so: `Colors.Namespace.colourName`
+* The `Colors.swift` is a file with a `Colors` enum which you can use to access the colours in code, like so: `Colors.Namespace.colourName`
 
 ## Installation 
 
